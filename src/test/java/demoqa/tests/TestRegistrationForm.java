@@ -1,8 +1,9 @@
-package demoqa;
+package demoqa.tests;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import pages.RegistrationPages;
 
 import java.io.File;
 
@@ -12,6 +13,8 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class TestRegistrationForm {
 
+    RegistrationPages registrationPages = new RegistrationPages();
+
     @BeforeAll
     static void setUp(){
         Configuration.holdBrowserOpen = true; //Делаем чтобы браузер оставался открытым
@@ -20,21 +23,15 @@ public class TestRegistrationForm {
     @Test
 
     void simpleTest(){
+        registrationPages.openPage()
+                        .setFirstName("Орлов")
+                        .setLastName("Алексей")
+                        .setEmail("aorlov@site.com")
+                        .setGender("Male");
 
-        String BaseUrl = "/automation-practice-form"; //создали переменную для страницы которую будем тестирвоать
-        open(BaseUrl); //открываем станицу которую будем тестировать через переменную
-
-        $("#firstName").setValue("Орлов"); //Заполянем Имя
-        $("#lastName").setValue("Алексей"); //Заполянем Фамилию
-        $("#userEmail").setValue("aorlov@site.com"); //Заполянем емейл
-        $("#gender-radio-1").doubleClick(); //Кликаем на пол
         $("#userNumber").setValue("9777742959"); //заполняем моб
 
-        $("#dateOfBirthInput").click(); //кликаем на поле чтобы открыть календарь
-        $(".react-datepicker__month-select").selectOption("July"); //Выбираем месяц через selectOption
-        $(".react-datepicker__year-select").selectOption("1997"); //Выбираем год через selectOption
-        $(".react-datepicker__day--020").click(); //Выбираем дату
-
+        registrationPages.setBirthDate("12","October","1996");
         $("#subjectsInput").setValue("Hindi").pressEnter(); // выбираем навык
         $("#hobbiesWrapper").$(byText("Music")).click(); //выбираем увлечение
         $("#currentAddress").setValue("Moskva, Krasnopresnenskaya nab., 12-17"); //заполняем адресс
@@ -44,9 +41,6 @@ public class TestRegistrationForm {
 
         $("#react-select-3-input").setValue("NCR").pressEnter(); //выбираем штат
         $("#react-select-4-input").setValue("Noida").pressEnter(); //выбираем город
-
-        executeJavaScript("$('#fixedban').remove()"); //убираем футер
-        executeJavaScript("$('footer').remove()");
 
         $("#submit").click(); //Кликаем на подтвержение формы
 
@@ -58,7 +52,7 @@ public class TestRegistrationForm {
         $(".table-responsive").shouldHave(text("9777742959"));
         $(".table-responsive").shouldHave(text("Hindi"));
         $(".table-responsive").shouldHave(text("Music"));
-        $(".table-responsive").shouldHave(text("20 July,1997"));
+        $(".table-responsive").shouldHave(text("12 October,1996"));
         $(".table-responsive").shouldHave(text("CKtO-Q6I1ks.jpg"));
         $(".table-responsive").shouldHave(text("Moskva, Krasnopresnenskaya nab., 12-17"));
         $(".table-responsive").shouldHave(text("NCR Noida"));
