@@ -27,11 +27,9 @@ public class TestRegistrationForm {
                         .setFirstName("Орлов")
                         .setLastName("Алексей")
                         .setEmail("aorlov@site.com")
-                        .setGender("Male");
+                        .setGender("Male").setPhone("9777742959")
+                        .setBirthDate("12","October","1996");
 
-        $("#userNumber").setValue("9777742959"); //заполняем моб
-
-        registrationPages.setBirthDate("12","October","1996");
         $("#subjectsInput").setValue("Hindi").pressEnter(); // выбираем навык
         $("#hobbiesWrapper").$(byText("Music")).click(); //выбираем увлечение
         $("#currentAddress").setValue("Moskva, Krasnopresnenskaya nab., 12-17"); //заполняем адресс

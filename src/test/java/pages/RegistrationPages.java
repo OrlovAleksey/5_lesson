@@ -29,6 +29,10 @@ public class RegistrationPages {
         $("#genterWrapper").$(byText(value)).click(); //Кликаем на пол
         return this;
     }
+    public RegistrationPages setPhone(String value){
+        $("#userNumber").setValue(value); //заполняем моб
+        return this;
+    }
     public RegistrationPages setBirthDate(String day, String month, String year){
         $("#dateOfBirthInput").click(); //кликаем на поле чтобы открыть календарь
         $(".react-datepicker__month-select").selectOption(month); //Выбираем месяц через selectOption
