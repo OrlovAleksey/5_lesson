@@ -27,7 +27,8 @@ public class TestRegistrationForm {
                         .setFirstName("Орлов")
                         .setLastName("Алексей")
                         .setEmail("aorlov@site.com")
-                        .setGender("Male").setPhone("9777742959")
+                        .setGender("Male")
+                        .setPhone("9777742959")
                         .setBirthDate("12","October","1996");
 
         $("#subjectsInput").setValue("Hindi").pressEnter(); // выбираем навык

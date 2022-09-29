@@ -1,5 +1,7 @@
 package pages;
 
+import pages.components.CalendarComponent;
+
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -35,9 +37,7 @@ public class RegistrationPages {
     }
     public RegistrationPages setBirthDate(String day, String month, String year){
         $("#dateOfBirthInput").click(); //кликаем на поле чтобы открыть календарь
-        $(".react-datepicker__month-select").selectOption(month); //Выбираем месяц через selectOption
-        $(".react-datepicker__year-select").selectOption(year); //Выбираем год через selectOption
-        $(".react-datepicker__day--0"+day).click(); //Выбираем дату
+        new CalendarComponent().setDate(day,month,year);
         return this;
     }
 
