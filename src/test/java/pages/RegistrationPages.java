@@ -1,6 +1,10 @@
 package pages;
 
+import pages.components.AddressComponent;
 import pages.components.CalendarComponent;
+import pages.components.ResultsTableComponent;
+
+import java.io.File;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -40,5 +44,38 @@ public class RegistrationPages {
         new CalendarComponent().setDate(day,month,year);
         return this;
     }
-
+    public RegistrationPages setSubjects(String value) {
+        $("#subjectsInput").setValue(value).pressEnter(); // выбираем навык
+        return this;
+    }
+    public RegistrationPages setHobbies(String value) {
+            $("#hobbiesWrapper").$(byText(value)).click(); //выбираем увлечение
+        return this;
+    }
+    public RegistrationPages setAddress(String value) {
+            $("#currentAddress").setValue(value); //заполняем адресс
+        return this;
+    }
+    public RegistrationPages setStateAndCity(String state, String city){
+        $("#dateOfBirthInput").click();
+        new AddressComponent().setStateAndCity(state,city);
+        return this;
+    }
+    public RegistrationPages uploadFile() {
+        File file = new File("src/test/resources/CKtO-Q6I1ks.jpg");//создаем переменную для файла
+        $("input#uploadPicture").uploadFile(file);
+        return this;
+    }
+    public RegistrationPages submitForm() {
+        $("#submit").click(); //Кликаем на подтвержение формы
+        return this;
+    }
+    public RegistrationPages checkResultsTableVisible() {
+        new ResultsTableComponent().checkVisible();
+        return this;
+    }
+    public RegistrationPages checkResultTable(String key, String value) {
+        new ResultsTableComponent().checkResult(key, value);
+        return this;
+    }
 }

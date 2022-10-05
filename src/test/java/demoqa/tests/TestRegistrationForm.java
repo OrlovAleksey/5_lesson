@@ -4,15 +4,7 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPages;
-
-import java.io.File;
-
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
-
 public class TestRegistrationForm {
-
     RegistrationPages registrationPages = new RegistrationPages();
 
     @BeforeAll
@@ -29,31 +21,24 @@ public class TestRegistrationForm {
                         .setEmail("aorlov@site.com")
                         .setGender("Male")
                         .setPhone("9777742959")
-                        .setBirthDate("12","October","1996");
+                        .setBirthDate("12","October","1996")
+                        .setSubjects("Hindi")
+                        .setHobbies("Music")
+                        .uploadFile()
+                        .setAddress("Moskva, Krasnopresnenskaya nab., 12-17")
+                        .setStateAndCity("NCR","Noida")
+                        .submitForm();
 
-        $("#subjectsInput").setValue("Hindi").pressEnter(); // выбираем навык
-        $("#hobbiesWrapper").$(byText("Music")).click(); //выбираем увлечение
-        $("#currentAddress").setValue("Moskva, Krasnopresnenskaya nab., 12-17"); //заполняем адресс
-
-        File file = new File("src/test/resources/CKtO-Q6I1ks.jpg");//создаем переменную для файла
-        $("#uploadPicture").uploadFile(file);//загружаем файл
-
-        $("#react-select-3-input").setValue("NCR").pressEnter(); //выбираем штат
-        $("#react-select-4-input").setValue("Noida").pressEnter(); //выбираем город
-
-        $("#submit").click(); //Кликаем на подтвержение формы
-
-        //Проверяем поля
-        $(".table-responsive").shouldHave(text("Орлов"));
-        $(".table-responsive").shouldHave(text("Алексей"));
-        $(".table-responsive").shouldHave(text("aorlov@site.com"));
-        $(".table-responsive").shouldHave(text("Male"));
-        $(".table-responsive").shouldHave(text("9777742959"));
-        $(".table-responsive").shouldHave(text("Hindi"));
-        $(".table-responsive").shouldHave(text("Music"));
-        $(".table-responsive").shouldHave(text("12 October,1996"));
-        $(".table-responsive").shouldHave(text("CKtO-Q6I1ks.jpg"));
-        $(".table-responsive").shouldHave(text("Moskva, Krasnopresnenskaya nab., 12-17"));
-        $(".table-responsive").shouldHave(text("NCR Noida"));
+        registrationPages.checkResultsTableVisible()
+                        .checkResultTable("Student Name", "Орлов Алексей")
+                        .checkResultTable("Student Email", "aorlov@site.com")
+                        .checkResultTable("Gender", "Male")
+                        .checkResultTable("Mobile", "9777742959")
+                        .checkResultTable("Date of Birth", "12 October,1996")
+                        .checkResultTable("Subjects", "Hindi")
+                        .checkResultTable("Hobbies", "Music")
+                        .checkResultTable("Picture", "CKtO-Q6I1ks.jpg")
+                        .checkResultTable("Address", "Moskva, Krasnopresnenskaya nab., 12-17")
+                        .checkResultTable("State and City", "NCR Noida");
     }
 }
