@@ -16,8 +16,8 @@ public class TestRegistrationForm {
 
     void simpleTest(){
         registrationPages.openPage()
-                        .setFirstName("Орлов")
-                        .setLastName("Алексей")
+                        .setFirstName("Orlov")
+                        .setLastName("Alex")
                         .setEmail("aorlov@site.com")
                         .setGender("Male")
                         .setPhone("9777742959")
@@ -30,7 +30,7 @@ public class TestRegistrationForm {
                         .submitForm();
 
         registrationPages.checkResultsTableVisible()
-                        .checkResultTable("Student Name", "Орлов Алексей")
+                        .checkResultTable("Student Name", "Orlov Alex")
                         .checkResultTable("Student Email", "aorlov@site.com")
                         .checkResultTable("Gender", "Male")
                         .checkResultTable("Mobile", "9777742959")
